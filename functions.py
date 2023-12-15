@@ -65,21 +65,27 @@ class save:
                 file_path = os.path.join(temp_dir, f'{filename}.txt')
                 with open(file_path, 'w', encoding='utf-8') as file:
                     for info in poplist:
-                        file.write(f'{info}\n')
+                        file.write({filename:info})
             except:
                 print('error')
 
-    def savetojson(poplist:list, filename:str):
+    def savetojson(poplist: list, filename: str):
         try:
             base_path = os.getcwd() 
             temp_dir = os.path.join(base_path, 'temp')
             os.makedirs(temp_dir, exist_ok=True)
             file_path = os.path.join(temp_dir, f'{filename}.json')
+
             with open(file_path, 'w', encoding='utf-8') as jsonfile:
                 for info in poplist:
-                    json.dump(info,jsonfile, ensure_ascii=False, indent=2)
-        except:
-            print('error')
+                    json.dump(info, jsonfile, ensure_ascii=False)
+                    jsonfile.write('\n')
+
+            print(f"Data has been saved to {file_path}")
+        except FileNotFoundError:
+            print(f"Error: File not found at {file_path}")
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
 
 class scrape:
     
@@ -109,7 +115,7 @@ class scrape:
                 for insiderow in insidedata:
                     cell = insiderow.find_all('td')
 
-                    # =====================corrects the format and datatype=============================
+                    # =====================transform or corrects the format and datatype=============================
                     raw_year = cell[0].text
                     year = scrape.convert_to_int(raw_year)
 
@@ -155,7 +161,7 @@ class scrape:
                 for insiderow in insidedata:
                     cell = insiderow.find_all('td')
 
-                    # =====================corrects the format and datatype=============================
+                    # =====================transform corrects the format and datatype=============================
                     raw_year = cell[0].text
                     year = scrape.convert_to_int(raw_year)
 

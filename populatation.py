@@ -18,12 +18,16 @@ for row in countryrow:
     landsize = data[6].text
     rownum = int(data[0].text.strip())
 
-    #since starting from 201 the table format change
+   # since starting from 201 the table format change
     if rownum <= 200:
+        # extract the data
         information = scrape.format1scrapeinfo(link['href'], link.text, landsize)
+        # load or save the collected data 
         save.savetomysql(information)
     else:
+        # extract the data
         information = scrape.format2scrapeinfo(link['href'], link.text, landsize)
+        # load or save the collected data 
         save.savetomysql(information)
 
     
