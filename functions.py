@@ -47,7 +47,7 @@ class save:
                     cursor.execute(population_query, population_values)
 
                 connection.commit()
-                print('Complete', f'Data has been Added! {country_name}=A{country_id}')
+                print('Complete', f'Data has been Added! {country_name}={country_id}')
 
             except mysql.connector.Error as e:
                 print('Error', f"Can't Add Data! Check inputs: {e}")
@@ -137,7 +137,7 @@ class scrape:
                     raw_landsize = land_area
                     landsize = scrape.convert_to_int(raw_landsize)
 
-                    if int(year) > 2019:
+                    if int(year) > 2009:
                         information.append([country_name, landsize, year, global_ranking, population, urbanpop, urbanperc, fertrate])
                     else:
                         break
@@ -183,7 +183,7 @@ class scrape:
                     raw_landsize = land_area
                     landsize = scrape.convert_to_int(raw_landsize)
 
-                    if int(year) > 2019:
+                    if int(year) > 2009:
                         information.append([country_name, landsize, year, global_ranking, population, urbanpop, urbanperc, fertrate])
                     else:
                         break
